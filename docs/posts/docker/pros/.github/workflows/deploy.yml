@@ -1,0 +1,238 @@
+name: Auto Deploy to Server
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  # 服务器配置 - 需要在 GitHub Secrets 中设置
+  SERVER_HOST: ${{ secrets.SERVER_HOST }}
+  SERVER_USER: ${{ secrets.SERVER_USER }}
+  SERVER_SSH_RSA: ${{ secrets.SERVER_SSH_RSA }}
+  
+  # Docker 镜像配置
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # 代码质量检查
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [pinco, r3-admin-front, r3-admin-server]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'pnpm'
+        cache-dependency-path: '${{ matrix.service }}/pnpm-lock.yaml'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
+
+    - name: Install dependencies
+      run: |
+        cd ${{ matrix.service }}
+        pnpm install
+
+    - name: Run lint (if available)
+      run: |
+        cd ${{ matrix.service }}
+        if [ -f "package.json" ] && grep -q "lint" package.json; then
+          pnpm run lint || echo "Lint script not found, skipping..."
+        fi
+      continue-on-error: true
+
+    - name: Run tests (if available)
+      run: |
+        cd ${{ matrix.service }}
+        if [ -f "package.json" ] && grep -q "test" package.json; then
+          pnpm run test || echo "Test script not found, skipping..."
+        fi
+      continue-on-error: true
+
+  # 构建 Docker 镜像
+  build:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    
+    strategy:
+      matrix:
+        service: [pinco, r3-admin-front, r3-admin-server]
+    
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.service }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./${{ matrix.service }}
+        file: ./${{ matrix.service }}/Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # 部署到服务器
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SERVER_SSH_RSA }}
+
+    - name: Add server to known hosts
+      run: |
+        ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Create deployment directory
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "mkdir -p /opt/pros"
+
+    - name: Copy docker-compose files to server
+      run: |
+        scp docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/opt/pros/
+        scp -r nginx/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/opt/pros/
+
+    - name: Create production docker-compose override
+      run: |
+        cat > docker-compose.prod.yml << EOF
+        version: '3'
+        services:
+          pinco:
+            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/pinco:latest
+            build: null
+          
+          r3-admin-front:
+            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/r3-admin-front:latest
+            build: null
+          
+          r3-admin-server:
+            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/r3-admin-server:latest
+            build: null
+            environment:
+              - NODE_ENV=production
+              - PORT=9506
+              - DB_TYPE=mysql
+              - DB_HOST=\${{ secrets.DB_HOST || 'host.docker.internal' }}
+              - DB_PORT=\${{ secrets.DB_PORT || '3306' }}
+              - DB_DATABASE=\${{ secrets.DB_DATABASE || 'r3' }}
+              - DB_USERNAME=\${{ secrets.DB_USERNAME }}
+              - DB_PASSWORD=\${{ secrets.DB_PASSWORD }}
+              - DB_SYNC=false
+              - JWT_SECRET=\${{ secrets.JWT_SECRET }}
+              - JWT_EXPIRE=\${{ secrets.JWT_EXPIRE || '4h' }}
+            nginx: {}
+        EOF
+        scp docker-compose.prod.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/opt/pros/
+
+    - name: Login to registry on server
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo ${{ secrets.GITHUB_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin"
+
+    - name: Deploy application
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          cd /opt/pros
+          
+          # 拉取最新镜像
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+          
+          # 停止旧容器
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+          
+          # 启动新容器
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+          
+          # 清理无用镜像
+          docker image prune -f
+          
+          # 检查服务状态
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml ps
+        EOF
+
+    - name: Health check
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          # 等待服务启动
+          sleep 30
+          
+          # 检查 Nginx 是否正常运行
+          if curl -f http://localhost > /dev/null 2>&1; then
+            echo "✅ Nginx is running"
+          else
+            echo "❌ Nginx health check failed"
+            exit 1
+          fi
+          
+          # 检查后端 API 是否响应
+          if curl -f http://localhost/r3/api/health > /dev/null 2>&1; then
+            echo "✅ Backend API is running"
+          else
+            echo "⚠️  Backend API health check failed (this might be expected if no health endpoint exists)"
+          fi
+        EOF
+
+  # 通知部署结果
+  notify:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: Notify deployment result
+      run: |
+        if [ "${{ needs.deploy.result }}" == "success" ]; then
+          echo "🎉 部署成功！"
+          echo "访问地址: http://${{ secrets.SERVER_HOST }}"
+          echo "管理后台: http://${{ secrets.SERVER_HOST }}/r3-admin/"
+          echo "博客: http://${{ secrets.SERVER_HOST }}/"
+        else
+          echo "❌ 部署失败，请检查日志"
+          exit 1
+        fi

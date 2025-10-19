@@ -1,0 +1,16 @@
+import comp from "/Users/await/pros/notes/docs/.vuepress/.temp/pages/posts/docker/github-actions/multi-repo-design.html.vue"
+const data = JSON.parse("{\"path\":\"/posts/docker/github-actions/multi-repo-design.html\",\"title\":\"\",\"lang\":\"zh-CN\",\"frontmatter\":{},\"headers\":[{\"level\":2,\"title\":\"项目结构\",\"slug\":\"项目结构\",\"link\":\"#项目结构\",\"children\":[{\"level\":3,\"title\":\"方案概述\",\"slug\":\"方案概述\",\"link\":\"#方案概述\",\"children\":[]},{\"level\":3,\"title\":\"详细步骤\",\"slug\":\"详细步骤\",\"link\":\"#详细步骤\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结\",\"link\":\"#总结\",\"children\":[]}]},{\"level\":2,\"title\":\"环境变量配置\",\"slug\":\"环境变量配置\",\"link\":\"#环境变量配置\",\"children\":[{\"level\":3,\"title\":\"方案一：在服务器上使用 .env 文件，推荐使用\",\"slug\":\"方案一-在服务器上使用-env-文件-推荐使用\",\"link\":\"#方案一-在服务器上使用-env-文件-推荐使用\",\"children\":[]},{\"level\":3,\"title\":\"方案二：使用 GitHub Secrets (不推荐)\",\"slug\":\"方案二-使用-github-secrets-不推荐\",\"link\":\"#方案二-使用-github-secrets-不推荐\",\"children\":[]},{\"level\":3,\"title\":\"总结\",\"slug\":\"总结-1\",\"link\":\"#总结-1\",\"children\":[]}]}],\"git\":{},\"filePathRelative\":\"posts/docker/github-actions/multi-repo-design.md\",\"excerpt\":\"<ul>\\n<li><a href=\\\"#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84\\\">项目结构</a>\\n<ul>\\n<li><a href=\\\"#%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0\\\">方案概述</a></li>\\n<li><a href=\\\"#%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4\\\">详细步骤</a>\\n<ul>\\n<li><a href=\\\"#1-%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C-pat\\\">1. 创建个人访问令牌 (PAT)</a></li>\\n<li><a href=\\\"#2-%E5%87%86%E5%A4%87%E4%B8%AD%E5%A4%AE%E9%83%A8%E7%BD%B2%E4%BB%93%E5%BA%93\\\">2. 准备中央部署仓库</a></li>\\n<li><a href=\\\"#3-%E5%9C%A8%E6%AF%8F%E4%B8%AA%E6%9C%8D%E5%8A%A1%E4%BB%93%E5%BA%93%E4%B8%AD%E9%85%8D%E7%BD%AE%E8%A7%A6%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81\\\">3. 在每个服务仓库中配置触发工作流</a></li>\\n</ul>\\n</li>\\n<li><a href=\\\"#%E6%80%BB%E7%BB%93\\\">总结</a></li>\\n</ul>\\n</li>\\n<li><a href=\\\"#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE\\\">环境变量配置</a>\\n<ul>\\n<li><a href=\\\"#%E6%96%B9%E6%A1%88%E4%B8%80%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E4%BD%BF%E7%94%A8-env-%E6%96%87%E4%BB%B6%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8\\\">方案一：在服务器上使用 <code>.env</code> 文件，推荐使用</a>\\n<ul>\\n<li><a href=\\\"#1-%E7%99%BB%E5%BD%95%E5%88%B0%E7%94%9F%E4%BA%A7%E6%9C%8D%E5%8A%A1%E5%99%A8\\\">1. 登录到生产服务器</a></li>\\n<li><a href=\\\"#2-%E5%88%9B%E5%BB%BA-env-%E6%96%87%E4%BB%B6\\\">2. 创建 <code>.env</code> 文件</a></li>\\n<li><a href=\\\"#3-%E7%BC%96%E8%BE%91%E5%B9%B6%E5%A1%AB%E5%85%85%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F\\\">3. 编辑并填充环境变量</a></li>\\n<li><a href=\\\"#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86\\\">工作原理</a></li>\\n</ul>\\n</li>\\n<li><a href=\\\"#%E6%96%B9%E6%A1%88%E4%BA%8C%E4%BD%BF%E7%94%A8-github-secrets-%E4%B8%8D%E6%8E%A8%E8%8D%90\\\">方案二：使用 GitHub Secrets (不推荐)</a></li>\\n<li><a href=\\\"#%E6%80%BB%E7%BB%93-1\\\">总结</a></li>\\n</ul>\\n</li>\\n</ul>\"}")
+export { comp, data }
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+  if (__VUE_HMR_RUNTIME__.updatePageData) {
+    __VUE_HMR_RUNTIME__.updatePageData(data)
+  }
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(({ data }) => {
+    __VUE_HMR_RUNTIME__.updatePageData(data)
+  })
+}

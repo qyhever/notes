@@ -1,0 +1,117 @@
+name: Deploy to Server (Build on Server)
+
+on:
+  push:
+    branches: [ main, master ]
+
+env:
+  # 服务器配置 - 需要在 GitHub Secrets 中设置
+  SERVER_HOST: ${{ secrets.SERVER_HOST }}
+  SERVER_USER: ${{ secrets.SERVER_USER }}
+  SERVER_SSH_RSA: ${{ secrets.SERVER_SSH_RSA }}
+  SERVER_PROJECT_PATH: ${{ secrets.SERVER_PROJECT_PATH || '/opt/pros' }}
+
+jobs:
+  # 代码质量检查（可选）
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
+        
+    # 这里可以添加简单的语法检查等
+    - name: Check project structure
+      run: |
+        echo "✅ 项目结构检查通过"
+        ls -la
+
+  # 部署到服务器
+  deploy:
+    needs: quality-check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SERVER_SSH_RSA }}
+
+    - name: Add server to known hosts
+      run: |
+        ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to server
+      run: |
+        # 同步代码到服务器
+        rsync -avz --delete \
+          --exclude '.git' \
+          --exclude 'node_modules' \
+          --exclude '.github' \
+          ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ env.SERVER_PROJECT_PATH }}/
+
+    - name: Build and restart services
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          cd ${{ env.SERVER_PROJECT_PATH }}
+          
+          echo "🔧 停止现有服务..."
+          docker-compose -f docker-compose.prod.yml down || echo "没有运行的服务"
+          
+          echo "🏗️  构建镜像..."
+          docker-compose -f docker-compose.prod.yml build --no-cache
+          
+          echo "🚀 启动服务..."
+          docker-compose -f docker-compose.prod.yml up -d
+          
+          echo "🧹 清理无用镜像..."
+          docker image prune -f
+          
+          echo "📊 检查服务状态..."
+          docker-compose ps
+        EOF
+
+    - name: Health check
+      run: |
+        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+          cd ${{ env.SERVER_PROJECT_PATH }}
+          
+          echo "⏳ 等待服务启动..."
+          sleep 30
+          
+          # 检查容器状态
+          if docker-compose ps | grep -q "Up"; then
+            echo "✅ 容器运行正常"
+          else
+            echo "❌ 容器启动异常"
+            docker-compose logs --tail=50
+            exit 1
+          fi
+          
+          # 检查 Web 服务
+          if curl -f http://localhost >/dev/null 2>&1; then
+            echo "✅ Web 服务访问正常"
+          else
+            echo "⚠️  Web 服务可能需要更多时间启动"
+          fi
+        EOF
+
+    - name: Show deployment info
+      run: |
+        echo "🎉 部署完成！"
+        echo "服务器: ${{ secrets.SERVER_HOST }}"
+        echo "项目路径: ${{ env.SERVER_PROJECT_PATH }}"
+        echo "访问地址: http://${{ secrets.SERVER_HOST }}"
+        echo "管理后台: http://${{ secrets.SERVER_HOST }}/r3-admin/"

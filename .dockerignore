@@ -1,0 +1,12 @@
+node_modules
+docs/.vuepress/dist
+docs/.vuepress/.temp
+docs/.vuepress/.cache
+.git
+.github
+*.log
+*.md
+!README.md
+.DS_Store
+**/.DS_Store
+.vscode
