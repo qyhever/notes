@@ -4,6 +4,7 @@ import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
 
 export default defineUserConfig({
+  base: '/notes/',
   lang: 'zh-CN',
 
   title: 'notes 笔记',
