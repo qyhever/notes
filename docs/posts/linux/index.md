@@ -79,10 +79,14 @@ scp -r dist/* user@remote_host:/usr/share/nginx/html/app/
 scp 用户名@ip地址:/usr/share/nginx/html/foo.html ./
 ```
 
-另外常用的上传还有 `rsync` 命令，它可以实现增量备份和同步，速度快。
+另外常用的上传还有 `rsync` 命令，它可以实现增量备份和同步，在传输大量文件时通常效率更高，因为它只传输变更的部分。
 ```bash
 # 同步本地目录到远程目录
 rsync -avz /path/to/local/dir user@remote_host:/path/to/remote/dir
 # 增量备份本地目录到远程目录
 rsync -avz --delete /path/to/local/dir user@remote_host:/path/to/remote/dir
 ```
+- `-a` ：归档模式，保留文件权限、所有权等信息。
+- `-v` ：详细模式，显示传输过程。
+- `-z` ：压缩传输，提高效率。
+- `--delete` ：在源目录中删除的文件，在目标目录中也会被删除，以保持两边文件的一致性。

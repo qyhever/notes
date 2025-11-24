@@ -44,4 +44,4 @@ jobs:
 
     - name: Copy deployment files to server
       run: |
-        scp -r docs/.vuepress/dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/usr/share/nginx/html/notes/
+        rsync -avz --delete docs/.vuepress/dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/usr/share/nginx/html/notes/
