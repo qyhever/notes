@@ -7,7 +7,7 @@
     - [6、使用 blob + ObjectURL + a 标签的方式下载](#6使用-blob--objecturl--a-标签的方式下载)
   - [服务端通过修改 HTTP 协议头实现修改文件名](#服务端通过修改-http-协议头实现修改文件名)
   - [参考链接 🖇](#参考链接-)
-  - [相关文章](#相关文章)
+  - [Reference](#reference)
 
 # 前端下载文件遇到的一些问题
 
@@ -199,7 +199,7 @@ function download(url, filename) {
 * [JavaScript 实现文件下载并重命名](https://www.jianshu.com/p/6545015017c4)
 - [原地址](https://github.com/NinjiaHub/Frontend-Tricks/blob/master/documents/CHAOS/download-file.md)
 
-## 相关文章
+## Reference
 - [前端下载文件的5种方法的对比](https://juejin.cn/post/6844904069958467592)
 - [【第1699期】正确处理下载文件时HTTP头的编码问题（Content-Disposition）](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651233330&idx=1&sn=b2f3ab11473b2ff849d03b9a237b0394&poc_token=HJCqlWijXrYjQ_2cv8XIg3raoxTastPkG1FqdRj9)
 - [正确处理下载文件时HTTP头的编码问题（Content-Disposition）](https://blog.robotshell.org/2012/deal-with-http-header-encoding-for-file-download/)
