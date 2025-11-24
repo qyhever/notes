@@ -2,6 +2,7 @@
   - [安装 MySQL rpm 源信息](#安装-mysql-rpm-源信息)
   - [yum安装](#yum安装)
   - [验证 MySQL 安装](#验证-mysql-安装)
+  - [mac 下安装](#mac-下安装)
   - [设置密码](#设置密码)
   - [常用命令](#常用命令)
   - [查看MySQL 配置文件](#查看mysql-配置文件)
@@ -83,6 +84,27 @@ rpm -qa | grep mariadb
 ```
 输出空，表示 mariaDB 已经被成功覆盖。
 
+### mac 下安装
+```bash
+# 检查服务列表
+brew services list
+# 检查是否有任何 mysqld 进程正在运行
+ps aux | grep mysqld
+# 检查 Homebrew 是否已安装 MySQL
+brew list | grep mysql
+# Homebrew 安装 MySQL
+brew install mysql
+# 启动 MySQL 服务
+brew services start mysql
+# 以 root 用户身份登录（默认无密码）
+mysql -u root
+# 设置密码
+mysqladmin -u root password 'new_password'
+# 重启 MySQL 服务
+brew services restart mysql
+```
+日志文件通常位于 /opt/homebrew/var/mysql/ 或 /usr/local/var/mysql/ 目录下，文件名通常是 `<hostname>.err` 。
+
 ### 设置密码
 Mysql安装成功后，默认的root用户密码为空，可以使用以下命令来创建root用户的密码：
 ```shell
@@ -156,7 +178,7 @@ mysql>source d:/dbname.sql
 ```
 
 ## Reference
-- [CentOS / Linux 安装MySQL（](https://juejin.cn/post/7224408845685325884)
+- [CentOS / Linux 安装MySQL](https://juejin.cn/post/7224408845685325884)
 - [centos7服务器yum安装MySQL数据库，以及报错的解决方案](https://cloud.tsyidc.com/internet/1585.html)
 - [Yum安装MySQL以及相关目录路径和修改目录](https://www.cnblogs.com/chinesern/p/8440206.html)
-- []()
+

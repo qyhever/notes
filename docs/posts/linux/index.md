@@ -40,6 +40,14 @@ rm -rf foo # 强制递归删除 foo
 find / -name openrestry # 全局查找 openrestry 的文件目录
 ```
 
+
+## chmod
+```bash
+chmod +r foo # 可读
+chmod +w foo # 可写
+chmod +x foo # 可执行
+```
+
 ## alias
 当前命令行生效
 ```bash
@@ -65,6 +73,8 @@ source ~/.bashrc
 scp ./foo.html 用户名@ip地址:/usr/share/nginx/html
 # 上传 bar 目录 到服务器 /usr/share/nginx/html 目录下
 scp -r bar 用户名@ip地址:/usr/share/nginx/html
+# 上传 dist 目录下所有文件 到服务器 /usr/share/nginx/html/app 目录下
+scp -r dist/* user@remote_host:/usr/share/nginx/html/app/
 # 下载 /usr/share/nginx/html/foo.html 文件 到 当前目录下
 scp 用户名@ip地址:/usr/share/nginx/html/foo.html ./
 ```

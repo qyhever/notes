@@ -28,7 +28,7 @@
 - [React](#react)
   - [常用](#常用)
   - [router](#router)
-  - [css in js](#css-in-js)
+  - [css](#css)
   - [动画](#动画)
   - [图片相关](#图片相关)
 - [Node](#node)
@@ -53,6 +53,7 @@
 - [js-xss](https://github.com/leizongmin/js-xss) - 防止 XSS 攻击
 - [NoSleep.js](https://github.com/richtr/NoSleep.js) - 浏览器不进入休眠状态，保持屏幕常亮
 - [patch-package](https://github.com/ds300/patch-package) - 修改 node_modules 下的包
+- [popular-message](https://github.com/nihaojob/popular-message) 轻量级的信息反馈组件
 
 ## web框架
 - [vue]()
@@ -86,6 +87,7 @@
 
 - [electron]()
 - [tauri]()
+- [GPUI]()
 - [wails]()
 
 ## hooks
@@ -112,9 +114,17 @@
 - [use-request]()
 
 ## 动画类
+- [swiper]()
+- [fullpage.js]()
+- [better-scroll]()
+- [anime](https://github.com/juliangarnier/anime)
+- [scrollReveal](https://github.com/jlmakes/scrollreveal)
+- [GSAP](https://github.com/greensock/GSAP) The GreenSock Animation Platform (GSAP)是一个功能十分强大的动画平台
+- [velocity](加速 JavaScript 动画)
+- [impress.js](https://github.com/impress/impress.js) 基于现代浏览器中 CSS3 变换和过渡功能的演示框架
+- [wow](https://github.com/mattdelacdev/WOW) 页面向下滚动时显示 CSS 动画
 - [Motion](https://github.com/motiondivision/motion-vue)
-- []()
-- []()
+- [framer-motion](https://github.com/motiondivision/motion)
 
 ## web 应用更新提示
 - [version-rocket](https://github.com/guMcrey/version-rocket) - 一个用于 web 应用版本检测和部署通知的工具库。
@@ -124,10 +134,11 @@
 - []()
 
 ## web 服务器
-- [nginx]()
-- [openresty]()
-- [acme.sh]()
-- [certd](https://github.com/certd/certd)
+- [nginx](https://github.com/nginx/nginx) - 高性能 Web 服务
+- [openresty](https://github.com/openresty/openresty) - 基于 Nginx 与 Lua 的高性能 Web 平台
+- [acme.sh](https://github.com/acmesh-official/acme.sh) - 自动续签 ssl 证书
+- [certd](https://github.com/certd/certd) - 又一个全自动证书申请工具
+- [certimate](https://github.com/certimate-go/certimate) 开源的 SSL 证书管理工具，自动申请、部署、续期
 - []()
 
 
@@ -205,6 +216,13 @@
 - cropperjs 一款强大的图片裁切库, 支持灵活的图片裁切方式
 - Grade 一个基于图像中的前2种主要颜色生成互补渐变背景的库
 - [image-compressor](https://github.com/powerbot15/image-compressor) - 前端图片压缩
+- [htmldocs](https://github.com/htmldocs-js/htmldocs) - 一个 React 组件，用来在网页中创建、编辑、预览 PDF 文档
+- [vanilla-lazyload](https://github.com/verlok/vanilla-lazyload) 于延迟加载图像、背景图像、视频、iframe 和脚本的轻量级选项
+- [lozad.js](https://github.com/ApoorvSaxena/lozad.js) 仅使用 Intersection Observer 延迟加载图像的轻量级选项
+- [lazysizes](https://github.com/aFarkas/lazysizes) 可以延迟加载图像和 iframe
+- [medium-zoom]() 图片放大预览
+- []()
+- []()
 
 ## Vue
 ### vue组件
@@ -224,6 +242,7 @@
 - [OverVue](https://github.com/open-source-labs/OverVue) - 适用于Vue的原型工具，帮你生成 Vue 组件
 - [vue-sticky](https://github.com/iqingting/vue-sticky) - sticky header
 - [vue-dompurify-html](https://github.com/LeSuisse/vue-dompurify-html) - xss 过滤
+- [vue-renderer-markdown]() 基于 vue3, ts, vite7, tailwindcss 的 专为 AI 驱动的流媒体 Markdown 
 
 ### vue-form
 - [f-render](https://github.com/dream2023/f-render) - 基于 ElementUI 的表单设计器
@@ -258,11 +277,14 @@
 
 ### router
 - [react-router-middleware-plus](https://github.com/justbecoder/react-router-middleware-plus)
-- [基于react-router-dom v6版本的路由权限配置化解决方案](https://mp.weixin.qq.com/s?__biz=MzI5NzQyNjg1OA==&mid=2247485395&idx=1&sn=73e0862cc216a4c147ccb77cbd885a9e&chksm=ecb40d16dbc384001a2bdaa26b01d78d89362056e7497c52f22a0bab508dd893604808cf88c2&mpshare=1&scene=24&srcid=0609tYo5WaX5OsBK5fkLuTOI&sharer_sharetime=1654738287745&sharer_shareid=669f6af8e4ea86c8eef75dfc5f5ae145#rd)
+- [基于react-router-dom v6版本的路由权限配置化解决方案](https://mp.weixin.qq.com/s/WPSQTblSv9v6wx8dlDSIBA)
 
-### css in js
-- [vanilla-extract](https://vanilla-extract.style/documentation/) - [零运行时且支持typescript](https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=2651601672&idx=2&sn=adbb7fe0e90e835bb4a9ff1b0f06bcb8&chksm=8022ecc9b75565df57e417e6baea60d038837f2f338d773849b0be8df07c1c7a69d9f5aa5b09&mpshare=1&scene=24&srcid=0409GtoyjGbAPeaCJDdAIUES&sharer_sharetime=1649469351324&sharer_shareid=669f6af8e4ea86c8eef75dfc5f5ae145#rd)
+### css
+- [vanilla-extract](https://vanilla-extract.style/documentation/)
+- [零运行时且支持typescript](https://mp.weixin.qq.com/s/Y-dseuMEA8S6kSShsCHkVA)
 - [styled-components](https://github.com/styled-components/styled-components)
+- [clsx]()
+- [classnames]()
 
 ### 动画
 - [react-page-transition](https://github.com/Steveeeie/react-page-transition) - 动画
@@ -319,6 +341,8 @@
 - [superagent](https://github.com/forwardemail/superagent)
 - [node-fetch](https://github.com/node-fetch/node-fetch)
 - [fetch](https://nodejs.org/docs/latest/api/globals.html#fetch) - 新版本Nodejs原生支持fetch
+- [ky](https://github.com/sindresorhus/ky) - 基于 Fetch API 的轻量级优雅 JavaScript HTTP 客户端
+- [wretch](https://github.com/elbywan/wretch) - 一个基于 fetch 构建的轻量级封装库
 
 ### 爬虫
 - [cheerio](https://github.com/cheeriojs/cheerio) - 类比 jQuery 语法

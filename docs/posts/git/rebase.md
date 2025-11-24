@@ -50,6 +50,10 @@ git pull --rebase
 git config --global pull.rebase true
 # git pull默认使用合并操作，回到 merge 模式
 git config --global pull.rebase false
+# 当前仓库使用变基
+git config pull.rebase true
+# 当前仓库使用 merge
+git config pull.rebase false
 ```
 
 ### 自动变基的问题

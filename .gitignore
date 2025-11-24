@@ -5,3 +5,5 @@ docs/.vuepress/dist
 **/.DS_Store
 docs/.vuepress/.cache
 docs/.vuepress/.temp/*
+
+deploy.sh

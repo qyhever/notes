@@ -29,7 +29,7 @@ vendor.ant-design.5dbb2c6f.js
 ```
 
 #### HTML 入口文件防缓存
-在 index.html 的 `<head>` 部分，加入了禁止缓存的 meta 标签。告诉浏览器：“嘿，别缓存我！每次都来服务器拿最新的。”
+在 index.html 的 `<head>` 部分，加入了禁止缓存的 meta 标签。告诉浏览器："嘿，别缓存我！每次都来服务器拿最新的。"
 
 ```html
 

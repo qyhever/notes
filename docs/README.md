@@ -1,11 +1,11 @@
 ---
 home: true
 heroImage: /logo.png
-heroText: 正在缓冲99%的前端记录
+heroText: 火星撞地球的前端记录
 tagline: 一点一滴都是进步
 actions:
   - text: 马上进入 →
-    link: /pages/linux/vim.md
+    link: /posts/linux/vim.md
     type: primary
 # home: true
 # title: Home

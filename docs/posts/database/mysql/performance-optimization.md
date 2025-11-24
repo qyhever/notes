@@ -21,7 +21,7 @@ explain语句执行后的字段解析：
 
 （2）select_type查询类型，表示当前被分析的sql语句的查询的复杂度，这个字段有多个值。SIMPLE表示简单查询，PRIMARY表示复杂查询中的最外层的select查询语句，SUBQUERY表是子查询语句跟在select 关键字后面的select查询语句。DERIVED派生查询，跟在一个select查询语句的from关键字后面的select查询语句。
 
-（3）table表示当前访问的表的名称，当from中有子查询时，table字段显示的是 `<derivedN>` ，N 为 derived 的 id 的值。
+（3）table表示当前访问的表的名称，当from中有子查询时，table字段显示的是 `<derivedN>` N为derived的id的值。
 
 （4）partitions返回的是数据分区的信息，不常用。
 
@@ -216,7 +216,7 @@ select id,name,age from user id>10000 limit 20;
 
   所以设计表字段时尽量避免null值出现，null值很难查询优化且占用额外的索引空间，推荐默认数字0代替null。
 
-### 8、尽量避免在 where!=或 `<>`
+### 8、尽量避免在 where!=或<>
 
 子句中使用!=或<>操作符，否则将引擎放弃使用索引而进行全表扫描。
 

@@ -129,6 +129,109 @@ res.send({
 
 ### 修改
 ```javascript
+const {
+  id, name, code, description, isEnabled, resourceCodes
+} = req.body
+// 校验目标是否存在
+const exists = await executeQuery('SELECT id, code, isSystemDefault FROM role WHERE id = ? AND isDeleted = 0', [id])
+// 如果更新 code，检查唯一性
+if (code) {
+  const dup = await executeQuery(
+    'SELECT COUNT(*) AS count FROM role WHERE code = ? AND id <> ? AND isDeleted = 0',
+    [code, id]
+  )
+  if (dup[0].count > 0) {
+    // 'code编码已存在'
+  }
+}
+// 如果更新 name，检查唯一性
+if (name) {
+  const duplicateName = await executeQuery(
+    'SELECT COUNT(*) AS count FROM role WHERE name = ? AND id <> ? AND isDeleted = 0', 
+    [name, id]
+  )
+  if (duplicateName[0].count > 0) {
+    // '角色名称已存在'
+  }
+}
+// 如果提供了资源编码，验证资源是否存在
+let validResourceIds = []
+if (resourceCodes !== undefined) {
+  if (resourceCodes && resourceCodes.length > 0) {
+    const resourceCheckSql = `
+      SELECT id, code FROM resource 
+      WHERE code IN (${resourceCodes.map(() => '?').join(',')}) AND isDeleted = 0
+    `
+    const existingResources = await executeQuery(resourceCheckSql, resourceCodes)
+    
+    if (existingResources.length !== resourceCodes.length) {
+      const foundCodes = existingResources.map(r => r.code)
+      const missingCodes = resourceCodes.filter(code => !foundCodes.includes(code))
+      return res.json({
+        code: 400,
+        message: `以下资源编码不存在: ${missingCodes.join(', ')}`
+      })
+    }
+    
+    validResourceIds = existingResources.map(r => r.id)
+  }
+  
+  // 更新角色资源关联
+  // 先删除旧的关联关系
+  await executeQuery('DELETE FROM role_resource WHERE roleId = ?', [id])
+  
+  // 插入新的关联关系
+  if (validResourceIds.length > 0) {
+    const roleResourceSql = `
+      INSERT INTO role_resource (roleId, resourceId) 
+      VALUES ${validResourceIds.map(() => '(?, ?)').join(', ')}
+    `
+    const roleResourceParams = []
+    validResourceIds.forEach(resourceId => {
+      roleResourceParams.push(id, resourceId)
+    })
+    
+    await executeQuery(roleResourceSql, roleResourceParams)
+  }
+}
+// 动态构建更新字段
+const updateFields = []
+const updateValues = []
+
+if (typeof name !== 'undefined') {
+  updateFields.push('name = ?')
+  updateValues.push(name)
+}
+
+if (typeof code !== 'undefined') {
+  updateFields.push('code = ?')
+  updateValues.push(code)
+}
+
+if (typeof description !== 'undefined') {
+  updateFields.push('description = ?')
+  updateValues.push(description)
+}
+
+if (typeof isEnabled !== 'undefined') {
+  updateFields.push('isEnabled = ?')
+  updateValues.push(isEnabled)
+}
+
+// 如果有要更新的字段，执行更新
+if (updateFields.length > 0) {
+  updateFields.push('updatedAt = NOW()')
+  const updateSql = `UPDATE role SET ${updateFields.join(', ')} WHERE id = ? AND isDeleted = 0`
+  updateValues.push(id)
+  
+  const updateResult = await executeQuery(updateSql, updateValues)
+  if (!updateResult || updateResult.affectedRows === 0) {
+    return res.json({
+      code: 404,
+      message: '资源不存在或已被删除'
+    })
+  }
+}
 ```
 
 ### 分页查询
@@ -189,4 +292,40 @@ res.send({
 
 ### 删除
 ```javascript
+const { id } = req.params
+
+// 检查角色是否存在
+const existingRole = await getOneRowInternal(id)
+if (!existingRole) {
+  // '资源不存在或已被删除'
+}
+
+// 检查系统默认角色是否可以删除
+if (existingRole.isSystemDefault === 1) {
+  // '系统内置资源不能删除'
+}
+
+// 检查是否有用户关联此角色
+const userRoles = await executeQuery(
+  'SELECT COUNT(*) as count FROM user_role WHERE roleId = ? AND isDeleted = 0',
+  [id]
+)
+
+if (userRoles[0].count > 0) {
+  // '该角色下还有用户，无法删除'
+}
+
+// 软删除角色
+const sql = 'UPDATE role SET isDeleted = 1, updatedAt = NOW() WHERE id = ? AND isDeleted = 0'
+const result = await executeQuery(sql, [id])
+
+if (!result || result.affectedRows === 0) {
+  return res.json({
+    code: 404,
+    message: '资源不存在或已被删除'
+  })
+}
+
+// 硬删除关联资源列表
+await executeQuery('DELETE FROM role_resource WHERE roleId = ?', [id])
 ```
