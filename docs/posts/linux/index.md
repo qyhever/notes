@@ -78,3 +78,11 @@ scp -r dist/* user@remote_host:/usr/share/nginx/html/app/
 # 下载 /usr/share/nginx/html/foo.html 文件 到 当前目录下
 scp 用户名@ip地址:/usr/share/nginx/html/foo.html ./
 ```
+
+另外常用的上传还有 `rsync` 命令，它可以实现增量备份和同步，速度快。
+```bash
+# 同步本地目录到远程目录
+rsync -avz /path/to/local/dir user@remote_host:/path/to/remote/dir
+# 增量备份本地目录到远程目录
+rsync -avz --delete /path/to/local/dir user@remote_host:/path/to/remote/dir
+```

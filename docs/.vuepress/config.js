@@ -78,8 +78,8 @@ export default defineUserConfig({
           {
             text: 'github-actions',
             children: [
-              { text: 'local', link: '/posts/docker/github-actions/deploy-local' },
-              { text: 'prod', link: '/posts/docker/github-actions/deploy-prod' },
+              { text: 'local', link: '/posts/docker/github-actions/deploy.local' },
+              { text: 'prod', link: '/posts/docker/github-actions/deploy.prod' },
             ]
           },
           { text: 'docker-compose', link: '/posts/docker/docker-compose' },
@@ -91,8 +91,8 @@ export default defineUserConfig({
         text: 'file',
         collapsible: true,
         children: [
-          { text: '文件下载', link: '/posts/file/download' },
-          { text: '原生node.js下载文件', link: '/posts/file/download-node' }
+          { text: '文件下载', link: '/posts/file/download-file' },
+          { text: '原生node.js下载文件', link: '/posts/file/native-nodejs-download-file' }
         ]
       },
       {
