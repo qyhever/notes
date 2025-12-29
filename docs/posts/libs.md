@@ -1,6 +1,8 @@
 - [常用类](#常用类)
+- [常用工具](#常用工具)
 - [web框架](#web框架)
 - [UI库](#ui库)
+- [icon](#icon)
 - [跨平台](#跨平台)
 - [hooks](#hooks)
 - [状态类](#状态类)
@@ -23,13 +25,13 @@
 - [Vue](#vue)
   - [vue组件](#vue组件)
   - [vue-form](#vue-form)
-  - [优化](#优化)
 - [Vuex](#vuex)
+- [动画](#动画)
 - [React](#react)
   - [常用](#常用)
   - [router](#router)
   - [css](#css)
-  - [动画](#动画)
+  - [动画](#动画-1)
   - [图片相关](#图片相关)
 - [Node](#node)
   - [web框架](#web框架-1)
@@ -40,6 +42,9 @@
   - [请求库](#请求库)
   - [爬虫](#爬虫)
   - [typescript](#typescript)
+  - [插件](#插件)
+- [AI](#ai)
+  - [构建应用](#构建应用)
 
 
 ## 常用类
@@ -54,6 +59,15 @@
 - [NoSleep.js](https://github.com/richtr/NoSleep.js) - 浏览器不进入休眠状态，保持屏幕常亮
 - [patch-package](https://github.com/ds300/patch-package) - 修改 node_modules 下的包
 - [popular-message](https://github.com/nihaojob/popular-message) 轻量级的信息反馈组件
+- [ForesightJS](https://github.com/spaansba/ForesightJS) 鼠标移动、滚动和键盘导航预测用户意图
+- []()
+
+## 常用工具
+- [jsonrepair](https://github.com/josdejong/jsonrepair) 修复无效 JSON 文档的工具
+- [fastgithub]() github访问
+- [Watt Toolkit（原名 Steam++）]() 一款开源、免费的多功能工具箱，强大的网络加速等功能
+- []()
+- []()
 
 ## web框架
 - [vue]()
@@ -77,6 +91,11 @@
 - [Reka UI]() - 原Radix Vue
 - [mui](https://mui.com/) - google
 - [chakra-ui](https://github.com/chakra-ui/chakra-ui)
+- [Untitled UI React](https://github.com/untitleduico/react) 基于 Tailwind CSS 和 React Aria 世界最大的 React 组件库
+
+## icon
+- [lucide](https://lucide.dev/)
+- [heroicons](https://heroicons.com/) Tailwind CSS 又出精品
 
 ## 跨平台
 - [react native]()
@@ -85,10 +104,14 @@
 - [expo]()
 - [finclip]()
 
-- [electron]()
-- [tauri]()
+- [electron]() github 出品，内置 chromium + Node.js
+- [tauri]() rust 社区出品，系统 webview + rust 后端
+- [valdi]() Snapchat 出品，iOS/Android/macOS
 - [GPUI]()
 - [wails]()
+
+- [pake]() web前端项目打包为桌面端应用
+- []()
 
 ## hooks
 
@@ -136,9 +159,11 @@
 ## web 服务器
 - [nginx](https://github.com/nginx/nginx) - 高性能 Web 服务
 - [openresty](https://github.com/openresty/openresty) - 基于 Nginx 与 Lua 的高性能 Web 平台
+- [Caddy]()
 - [acme.sh](https://github.com/acmesh-official/acme.sh) - 自动续签 ssl 证书
 - [certd](https://github.com/certd/certd) - 又一个全自动证书申请工具
 - [certimate](https://github.com/certimate-go/certimate) 开源的 SSL 证书管理工具，自动申请、部署、续期
+- [allinssl](https://github.com/allinssl/allinssl) SSL证书管理
 - []()
 
 
@@ -184,6 +209,10 @@
 - [vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller/tree/v1/packages/vue-virtual-scroller) - vue2
 - [vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller) - vue3
 - [vuescroll](https://github.com/YvesCoding/vuescroll) - a customizable scrollbar plugin
+- [simplebar](https://github.com/Grsmto/simplebar) Custom scrollbars vanilla javascript library with native scroll
+- []()
+- []()
+- []()
 
 ## 数值类
 - [json-bigint](https://github.com/sidorares/json-bigint) - 数值类型丢失精度问题
@@ -225,6 +254,7 @@
 - []()
 
 ## Vue
+- [vue-plugins](https://www.vue-plugins.org/) Vue.js Plugins Collection
 ### vue组件
 - [vue-happy-bus](https://github.com/tangdaohai/vue-happy-bus) - 基于 vue 实现的订阅/发布插件
 - [vue-seamless-scroll](https://github.com/chenxuan0000/vue-seamless-scroll) - 无缝滚动
@@ -243,6 +273,12 @@
 - [vue-sticky](https://github.com/iqingting/vue-sticky) - sticky header
 - [vue-dompurify-html](https://github.com/LeSuisse/vue-dompurify-html) - xss 过滤
 - [vue-renderer-markdown]() 基于 vue3, ts, vite7, tailwindcss 的 专为 AI 驱动的流媒体 Markdown 
+- [vue-infinity](https://github.com/isaact/vue-infinity) 虚拟滚动
+- [vue-lazyload](https://github.com/hilongjw/vue-lazyload) - 图片懒加载
+- [vue-virtual-scroll-list](https://github.com/tangbc/vue-virtual-scroll-list) - 虚拟列表
+- [vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller) - 虚拟列表
+- [umy-ui](https://github.com/u-leo/umy-ui) - 解决表格万级数据渲染卡顿
+- []()
 
 ### vue-form
 - [f-render](https://github.com/dream2023/f-render) - 基于 ElementUI 的表单设计器
@@ -251,14 +287,9 @@
 - [v-distpicker](https://github.com/jcc/v-distpicker) - 省市区三级联动选择器
 - [v-region](https://github.com/TerryZ/v-region) - 省市区三级联动选择器
 - [v2-datepicker](https://github.com/dwqs/v2-datepicker) - 日期选择
+- [vue-uform]() 下一代 Vue 表单验证库
 
 - [temir](https://github.com/webfansplz/temir) - 使用 vue.js 编写命令行界面应用
-
-### 优化
-- [vue-lazyload](https://github.com/hilongjw/vue-lazyload) - 图片懒加载
-- [vue-virtual-scroll-list](https://github.com/tangbc/vue-virtual-scroll-list) - 虚拟列表
-- [vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller) - 虚拟列表
-- [umy-ui](https://github.com/u-leo/umy-ui) - 解决表格万级数据渲染卡顿
 
 ## Vuex
 - [vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate) - 状态持久化
@@ -266,6 +297,9 @@
 - [vuex-i18n](https://github.com/dkfbasel/vuex-i18n) - 语言本地化
 - [vuex-loading](https://github.com/tw666/vuex-loading) - 管理 loading 状态，类似 dva-loading
 - [vuex-cache](https://github.com/superwf/vuex-cache) - 缓存 vuex 的 action
+
+## 动画
+- [vue-starport]()
 
 ## React
 ### 常用
@@ -304,6 +338,8 @@
 - [sails](https://github.com/balderdashy/sails) - The MVC framework for Node.js
 - [meteor](https://github.com/meteor/meteor)
 - [fastify](https://github.com/fastify/fastify)
+- [h3]()
+- []()
 
 ### orm
 - [mongoose](https://github.com/Automattic/mongoose)
@@ -351,3 +387,16 @@
 
 ### typescript
 - [zod](https://github.com/colinhacks/zod) - 验证库
+
+### 插件
+- [sharp-image](https://github.com/Moveharder/sharp-image) 本地图片压缩工具
+
+## AI
+- [cursor-free-everyday](https://github.com/agentcodee/cursor-free-everyday)
+- [shadcn-ui-mcp-server ]()
+
+### 构建应用
+- [v0]()
+- [Bolt]()
+- [Lovable]()
+- [Dyad]()

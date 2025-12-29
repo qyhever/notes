@@ -3,17 +3,29 @@
 
 ### nodejs
 ```javascript
-import { execSync } from 'child_process'
+import child_process from 'child_process'
 
+function getNow () {
+  const d = new Date()
+  const year = d.getFullYear()
+  const month = d.getMonth() + 1
+  const date = d.getDate()
+  const hour = d.getHours()
+  const minute = d.getMinutes()
+  const second = d.getSeconds()
+  return `${year}/${month}/${date} ${hour}:${minute}:${second}`
+}
 try {
   const [, , commitTitle] = process.argv
   const commands = [
+    'git config user.name',
+    'git config user.email',
     'git add .',
-    `git commit -m "${commitTitle || 'commit ' + new Date().toLocaleString()}"`,
+    `git commit -m "${commitTitle || 'mac2021 commit: ' + getNow()}"`,
     'git pull',
     'git push'
   ]
-  execSync(commands.join(' && '), {
+  child_process.execSync(commands.join(' && '), {
     stdio: 'inherit'
   })
 } catch (error) {

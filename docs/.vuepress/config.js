@@ -48,6 +48,15 @@ export default defineUserConfig({
         ],
       },
       {
+        text: 'browse',
+        collapsible: true,
+        children: [
+          { text: '双因素认证', link: '/posts/browse/2fa' },
+          { text: 'sse', link: '/posts/browse/sse' },
+          { text: 'token', link: '/posts/browse/token' }
+        ],
+      },
+      {
         text: 'database',
         collapsible: true,
         children: [

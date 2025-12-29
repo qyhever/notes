@@ -3,11 +3,11 @@
     - [1、使用 a 标签下载](#1使用-a-标签下载)
     - [2、使用虚拟 a 标签下载](#2使用虚拟-a-标签下载)
     - [3、使用 `window.open` 方法下载](#3使用-windowopen-方法下载)
-    - [5、使用 iframe 下载](#5使用-iframe-下载)
-    - [6、使用 blob + ObjectURL + a 标签的方式下载](#6使用-blob--objecturl--a-标签的方式下载)
+    - [4、使用 iframe 下载](#4使用-iframe-下载)
+    - [5、使用 blob + ObjectURL + a 标签的方式下载](#5使用-blob--objecturl--a-标签的方式下载)
   - [服务端通过修改 HTTP 协议头实现修改文件名](#服务端通过修改-http-协议头实现修改文件名)
-  - [参考链接 🖇](#参考链接-)
-  - [Reference](#reference)
+  - [参考链接](#参考链接)
+  - [相关文章](#相关文章)
 
 # 前端下载文件遇到的一些问题
 
@@ -15,9 +15,9 @@
 
 在这个需求中，同一个视频被分成了一到多个视频片段，如果有一个视频片段在点击下载按钮时直接下载；如果有多个视频片段则需要选择后点击一次下载按钮时完成对所有视频片段的下载，即不能将视频的下载链接写成 `<a href="xx" download>video href</a>` 这种形式逐个点击后下载。接下来，我们就来看一看前端中到底有多少种方式可以用来下载文件。
 
-## <span id="ways">前端下载文件的方式</span>
+## 前端下载文件的方式
 
-### <span id="a-tag">1、使用 a 标签下载</span>
+### 1、使用 a 标签下载
 
 通常情况下我们使用 `a` 标签进行页面之间的跳转，但是 `a` 标签还有一个隐藏功能，那就是 **文件下载**。默认情况下，如果 `a` 标签的 `href` 属性的值是一个指向浏览器可以打开的 MIME 中的一种时，浏览器会加载该 URI 指向的文件的并展示出来；如果 URI 指向的文件并不能被浏览器展现时，则会被下载到本地。
 
@@ -25,7 +25,7 @@
 
 但是，如果 `a` 标签的 `href` 是指向的一个接口，通过接口下载文件的话，`download` 属性即使设置了值，也不能更改下载到本地的文件的名字；同样，下载 OSS 上的文件，也不能通过设置 `download` 属性来改变下载到本地文件的名字。所以，如果使用 `a` 标签下载文件并且想修改下载到本地的文件名时，需要服务端配合修改 HTTP 的协议头 `Content-Disposition`。
 
-### <span id="virtual-a-tag">2、使用虚拟 a 标签下载</span>
+### 2、使用虚拟 a 标签下载
 
 由于产品形态或者其他原因，有时候产品不允许在页面中出现 **实体的 a 标签**，这里所谓的实体的 a 标签是指真实存在于 dom 树中的 a 标签，这种时候可以借助存在于内存中的 **虚拟 a 标签** 来实现下载的功能。
 
@@ -51,7 +51,7 @@ download()
 
 其实即使不将 a 标签添加到 dom 树中，也可以通过 `a.click()` 触发 a 标签的点击事件实现下载；所以，在使用的过程中，可以省略上面代码中被注释的部分，少改变一次 dom 树，毕竟任何的操作都是有消耗的。
 
-### <span id="window-open">3、使用 `window.open` 方法下载</span>
+### 3、使用 `window.open` 方法下载
 
 同没有添加 `download` 属性的 a 标签一样，可以通过 `window.open` 方法下载部分文件，这些可以下载的文件是不能被浏览器展现出来的文件；对于可以被浏览器解析并展现的文件，`windown.open` 方法只会在新打开的窗口渲染文件内容，并不会下载到本地。
 
@@ -75,7 +75,7 @@ w.location = url
 
 **另：不要通过 `window.open` 方法打开不安全的下载页面，因为新打开的页面可以通过 `window.opener` 获取你的页面引用。详见 [rel=noopener](./rel-noopener.md)**。
 
-### <span id="iframe">5、使用 iframe 下载</span>
+### 4、使用 iframe 下载
 
 使用 iframe 下载文件与使用 [虚拟 a 标签下载](#virtual-a-tag) 或者 [使用 `window.open` 方法下载](#window-open) 具有一样的局限：只能下载浏览器不能渲染的文件。其本质也是借助浏览器会下载不能渲染的文件的特性。
 
@@ -90,7 +90,7 @@ f.src = 'URL/to/file'
 
 **注释部分的代码可以不用，因为可以通过内存中的 iframe 实现下载。**
 
-### <span id="blob-ObjectURL-a">6、使用 blob + ObjectURL + a 标签的方式下载</span>
+### 5、使用 blob + ObjectURL + a 标签的方式下载
 
 该实现方式的代码如下：
 
@@ -153,10 +153,6 @@ function download(url, filename) {
     });
 }
 
-作者：RoamIn
-链接：https://www.jianshu.com/p/6545015017c4
-來源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ```
 
 **注：©上面的代码摘抄自 [JavaScript 实现文件下载并重命名](https://www.jianshu.com/p/6545015017c4)。**
@@ -176,7 +172,7 @@ function download(url, filename) {
 
 * 可以本地控制修改文件名，即使是下载 OSS 文件也可以在本地定义文件名。
 
-## <span id="http-header">服务端通过修改 HTTP 协议头实现修改文件名</span>
+## 服务端通过修改 HTTP 协议头实现修改文件名
 
 上面的下载方式都不能很好的解决本地下载且修改文件名的问题；这里要讲的下载方式可以比较好的解决问题：既可以持续下载让用户看到，又能本地修改下载后的文件名字。
 
@@ -190,16 +186,16 @@ function download(url, filename) {
 
 可以在设计接口时，留一个设置文件名的参数，这样就可以在调用下载接口时，将想要设置的文件名以参数的形式传递到服务端；服务端接口在响应时，在响应中带上 HTTP 协议头，通知浏览器修改下载文件的名字。
 
-## <span id="links">参考链接</span> 🖇
+## 参考链接
 
-* [How to set name of file downloaded from browser?
+- [How to set name of file downloaded from browser?
 ](https://stackoverflow.com/questions/3102226/how-to-set-name-of-file-downloaded-from-browser "How to set name of file downloaded from browser?
 ")
-* [FileSaver](https://github.com/eligrey/FileSaver.js)
-* [JavaScript 实现文件下载并重命名](https://www.jianshu.com/p/6545015017c4)
+- [FileSaver](https://github.com/eligrey/FileSaver.js)
+- [JavaScript 实现文件下载并重命名](https://www.jianshu.com/p/6545015017c4)
 - [原地址](https://github.com/NinjiaHub/Frontend-Tricks/blob/master/documents/CHAOS/download-file.md)
 
-## Reference
+## 相关文章
 - [前端下载文件的5种方法的对比](https://juejin.cn/post/6844904069958467592)
 - [【第1699期】正确处理下载文件时HTTP头的编码问题（Content-Disposition）](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651233330&idx=1&sn=b2f3ab11473b2ff849d03b9a237b0394&poc_token=HJCqlWijXrYjQ_2cv8XIg3raoxTastPkG1FqdRj9)
 - [正确处理下载文件时HTTP头的编码问题（Content-Disposition）](https://blog.robotshell.org/2012/deal-with-http-header-encoding-for-file-download/)

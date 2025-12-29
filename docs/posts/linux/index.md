@@ -8,11 +8,12 @@ lsb_release -a # 提供Linux 发行版的详细信息，包括名称、版本号
 ## 文件目录
 ```bash
 ls -la # 列出全部文件并显示详细信息
+ls -la # 查看文件的详细信息(文件大小)
 ls a* # 列出当前目录下的所有以a字母开头的文件
 ls -l *.txt # 列出当前目录下的所有后缀名为txt的文件
 
 mkdir foo # 创建 foo 目录
-mkdir foo/bar/baz # 创建多层目录
+mkdir -p foo/bar/baz # 创建多层目录
 mkdir -m 777 foo # 创建 foo 目录，权限为 777
 
 rmdir -p foo/bar/baz # 删除多层目录，仅能删除空目录
@@ -26,6 +27,7 @@ cp -a foo bar # 把 foo 目录下所有文件复制到新目录 bar
 mv a.txt b.txt # 把文件a重命名为b
 mv a.txt ./foo # 把a文件移动到 foo 目录
 
+tail -n 50 a.txt # 查看文件最后50行
 cat a.txt # 查看文件内容
 cat -n a.txt # 查看文件并给文件内容标上行号
 cat a.txt >> b.txt # 把a文件的内容组合到b文件的末尾
@@ -83,6 +85,8 @@ scp 用户名@ip地址:/usr/share/nginx/html/foo.html ./
 ```bash
 # 同步本地目录到远程目录
 rsync -avz /path/to/local/dir user@remote_host:/path/to/remote/dir
+# 上传 dist 目录下所有文件 到服务器 /usr/share/nginx/html/app 目录下
+rsync -avz dist/ user@remote_host:/usr/share/nginx/html/app/
 # 增量备份本地目录到远程目录
 rsync -avz --delete /path/to/local/dir user@remote_host:/path/to/remote/dir
 ```
@@ -90,3 +94,24 @@ rsync -avz --delete /path/to/local/dir user@remote_host:/path/to/remote/dir
 - `-v` ：详细模式，显示传输过程。
 - `-z` ：压缩传输，提高效率。
 - `--delete` ：在源目录中删除的文件，在目标目录中也会被删除，以保持两边文件的一致性。
+**使用 `--delete` 前请确认源目录正确无误，最好先加 `--dry-run` 测试。`--dry-run` 会模拟执行同步过程，显示哪些文件会被传输、哪些会被删除，但不会真正执行任何操作。**
+
+## 清空文件内容
+重定向 (最快)
+- `> filename`
+- `echo "" > filename`
+- `: > filename` (冒号是`shell`内置的`true`命令)
+- `true > filename`
+- 优点：非常快，简单直接，推荐使用。
+- 其它的还有 cat truncate dd 命令也可以
+
+## lsof 查询端口
+
+## ss：网络连接的"扫描仪"
+netstat太慢，改用ss -antp
+
+## dstat：系统资源的"仪表盘"
+dstat --top-cpu
+
+## perf：性能瓶颈的"显微镜"
+perf record -g -p 2345

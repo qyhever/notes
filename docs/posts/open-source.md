@@ -7,6 +7,8 @@
 - [journal-server](https://github.com/suyu610/journal-server) 好享记账后端
 - [Cent](https://github.com/glink25/Cent) 完全免费、开源的多人协作记账
 - [daily](https://github.com/robinv8/daily) 基于 astro, golang, postgreSQL的日常收集优质内容
+- [HuLa](https://github.com/HuLaSpark/HuLa/blob/master/README.md) 基于Tauri、Vite 6、Vue 3 和 TypeScript 构建的即时通讯系统HuLa
+- [TrendRadar](热点助手，一键监控多家资讯平台热点信息)
 - []()
 
 ### lowcode
@@ -31,6 +33,10 @@
 - [lumma](https://github.com/geosmart/lumma) 一款免费的AI原生日记本，基于 flutter
 - [codeapp](https://github.com/thebaselab/codeapp) 用 iPad 来写代码
 - [Chat2DB]() 阿里开源一款数据库神器
+- [Bananas](https://github.com/mistweaverco/bananas) 一个简单易用的跨平台屏幕共享工具
+- [Douyin-Downloader](https://github.com/jiji262/douyin-downloader) 一个功能强大的抖音内容下载工具
+- []()
+- []()
 
 ### sass
 - [mall](https://github.com/macrozheng/mall) 一套电商系统，包括前台商城系统及后台管理系统，基于Spring Boot+MyBatis实现，采用Docker容器化部署
@@ -41,7 +47,8 @@
 - [wimoor](https://github.com/wimoor-erp/wimoor) 基于 SpringBoot，支持商用的亚马逊erp系统
 - [memberclub](https://github.com/juejin-wuyang/memberclub) 基于 SpringBoot，面向电商C端业务的快速开发平台，可以在一天时间快速搭建一套订单交易系统
 - [Vue.NetCore](https://gitee.com/x_discoverer/Vue.NetCore) (已支持SqlSugar).Net8、EFCore8、Vue3、Element plus+uniapp前后端分离 admin 模板
-- []()
+- [erpnext](https://github.com/frappe/erpnext) 一个强大、直观且完全开源（GPL-3.0 license）的企业资源规划（ERP）系统
+- [AgileBoot ]() 一套开源的全栈精简快速开发平台，基于 Spring Boot 和 Vue3 构建，作为初学者学习案例
 - []()
 
 ### proxy
@@ -136,7 +143,7 @@
 
 ### golang
 - [wordZero](https://github.com/ZeroHawkeye/wordZero) 一个基于 golang 的 Word 文档操作库
-- []()
+- [go-wxpush](https://github.com/hezhizheng/go-wxpush) 极简且免费的微信消息推送服务
 - []()
 - []()
 
@@ -149,4 +156,26 @@
 - [IceCubesApp](https://github.com/Dimillian/IceCubesApp) A SwiftUI Mastodon client
 - [HowToCook](https://github.com/Anduin2017/HowToCook) 程序员在家做饭方法指南
 - [CookLikeHOC](https://github.com/Gar-b-age/CookLikeHOC) 像老乡鸡那样做饭
+- [build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) 从头开始重新创建您最喜欢的技术来掌握编程
+- []()
+- []()
+
+### rust
+- [RustFS]() 一款基于Rust语言构建的高性能分布式对象存储系统
+- [ZeroFS](https://github.com/Barre/ZeroFS) 一个基于 Rust 开发的分布式文件系统
+- [rathole]() 高性能内网穿透工具- []()
+- [ServBay]() 把 Rust环境管理，从命令行搬进图形界面
+- [Clippy & Rustfmt]() 代码质量检测员
+- [GDB / LLDB]() 当 println!失灵的时候
+- [Tokio Console]() 给你的异步代码做个扫描
+- []()
+- []()
+- []()
+
+#### web框架
+- [Actix-web]()
+- [Axum]() 后起之秀，由维护 Tokio（Rust 最核心的异步运行时）的团队亲手打造
+- [Rocket]() 核心理念借鉴了 Ruby on Rails：约定优于配置
+- [salvo]() 国产
+- []()
 - []()

@@ -59,8 +59,8 @@ ssh-add ~/.ssh/id_rsa_bar
 
 ### 步骤五：为了确认我们可以通过 SSH 连接 github，可通过输入下面命令来验证
 ```shell
-ssh-add -T git@foo.github.com
-ssh-add -T git@bar.github.com
+ssh -T git@foo.github.com
+ssh -T git@bar.github.com
 ```
 
 如果看到下面信息，就说明连接正常。

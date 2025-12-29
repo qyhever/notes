@@ -72,7 +72,13 @@ git stash
 git pull
 git stash pop
 ```
-如果使用git pull有冲突，则合并完冲突之后，执行一下 git rebase --continue 就好了，其它和原先的用法没有任何区别。
+如果使用git pull有冲突，则合并完冲突之后
+执行
+```shell
+git add .
+git rebase --continue
+```
+最后再 `push`, 其它和原先的用法没有任何区别。
 
 ## 参考文章
 - [直接使用git pull拉取代码，被同事狠狠地diss了！](https://juejin.cn/post/7389650358539255845)
