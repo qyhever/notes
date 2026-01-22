@@ -4,8 +4,8 @@
 name: Build and Deploy notes via SSH
 
 on:
-  push:
-    branches: [ main, master ]
+  # push:
+  #   branches: [ main, master ]
   workflow_dispatch:
 
 jobs:

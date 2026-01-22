@@ -51,7 +51,7 @@ export default defineUserConfig({
         text: 'browse',
         collapsible: true,
         children: [
-          { text: '双因素认证', link: '/posts/browse/2fa' },
+          { text: '2fa', link: '/posts/browse/2fa' },
           { text: 'sse', link: '/posts/browse/sse' },
           { text: 'token', link: '/posts/browse/token' }
         ],
@@ -101,7 +101,7 @@ export default defineUserConfig({
         collapsible: true,
         children: [
           { text: '文件下载', link: '/posts/file/download-file' },
-          { text: '原生node.js下载文件', link: '/posts/file/native-nodejs-download-file' }
+          { text: '原生 node.js下载文件', link: '/posts/file/native-nodejs-download-file' }
         ]
       },
       {
