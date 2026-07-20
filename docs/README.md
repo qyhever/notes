@@ -1,11 +1,11 @@
 ---
 home: true
 heroImage: /logo.png
-heroText: 火星撞地球的前端记录
+heroText: 火星撞地球的coding记录
 tagline: 一点一滴都是进步
 actions:
   - text: 马上进入 →
-    link: /posts/linux/vim.md
+    link: /posts/network/web-evolution.md
     type: primary
 # home: true
 # title: Home

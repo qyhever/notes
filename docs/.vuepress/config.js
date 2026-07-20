@@ -41,6 +41,25 @@ export default defineUserConfig({
     sidebarDepth: 0,
     sidebar: [
       {
+        text: 'nestjs',
+        collapsible: true,
+        children: [
+          { text: 'NestJS介绍', link: '/posts/nestjs/index' },
+          { text: 'Nest CLI 常用命令', link: '/posts/nestjs/nestjs-cli-common-commands' },
+          { text: 'NestJS 中 Module、Controller 和 Service 的直接关系', link: '/posts/nestjs/nestjs-module-controller-service' },
+          { text: 'NestJS 在 Service 之外增加抽象类与 Repository 层', link: '/posts/nestjs/nestjs-service-abstract-repository-layer' },
+          { text: 'NestJS 优雅实现环境变量配置与校验', link: '/posts/nestjs/nestjs-env-config' },
+          { text: 'NestJS 如何使用 Middleware', link: '/posts/nestjs/nestjs-middleware' },
+          { text: 'NestJS 接入 MySQL 数据库', link: '/posts/nestjs/nestjs-database-typeorm' },
+          { text: 'NestJS 使用 class-transformer 统一格式化响应字段', link: '/posts/nestjs/nestjs-class-transformer-response-serialization' },
+          { text: 'NestJS 使用 class-validator 做字段参数校验', link: '/posts/nestjs/nestjs-class-validator-request-validation' },
+          { text: 'NestJS 使用 Interceptor 统一响应', link: '/posts/nestjs/nestjs-interceptor-unified-response' },
+          { text: 'NestJS 实现 JWT 登录、令牌刷新与全局路由守卫', link: '/posts/nestjs/nestjs-jwt-login-and-route-guard' },
+          { text: 'NestJS 项目如何检查 Node.js 版本', link: '/posts/nestjs/nestjs-nodejs-version-check' },
+          { text: 'NestJS 使用 Swagger 生成接口文档', link: '/posts/nestjs/nestjs-swagger-knife4j-api-docs' },
+          { text: 'VSCode REST Client：用 `.http` 文件调试和管理 API', link: '/posts/nestjs/vscode-rest-client' },        ],
+      },
+      {
         text: 'build',
         collapsible: true,
         children: [
