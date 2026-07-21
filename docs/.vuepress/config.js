@@ -57,6 +57,7 @@ export default defineUserConfig({
           { text: 'NestJS 实现 JWT 登录、令牌刷新与全局路由守卫', link: '/posts/nestjs/nestjs-jwt-login-and-route-guard' },
           { text: 'NestJS 项目如何检查 Node.js 版本', link: '/posts/nestjs/nestjs-nodejs-version-check' },
           { text: 'NestJS 使用 Swagger 生成接口文档', link: '/posts/nestjs/nestjs-swagger-knife4j-api-docs' },
+          { text: 'NestJS 接入 Logger，并结合 Exception Filter 记录异常日志', link: '/posts/nestjs/nestjs-logger-exception-filter' },
           { text: 'VSCode REST Client：用 `.http` 文件调试和管理 API', link: '/posts/nestjs/vscode-rest-client' },        ],
       },
       {
